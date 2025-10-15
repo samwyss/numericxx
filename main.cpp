@@ -20,9 +20,9 @@
 #include <iostream>
 #include <numericxx.hpp>
 
-double rhs(const double f, const double t) { return -2.0 * f; }
+double rhs(const double f, const double x, const double t) { return -2.0 * f; }
 
-double sol(const double f, const double t) { return std::exp(-2.0 * t); }
+double sol(const double f, const double x, const double t) { return std::exp(-2.0 * t); }
 
 int main(const int argc, const char **argv) {
   const auto n = static_cast<size_t>(std::stoull(argv[1]));
@@ -32,7 +32,7 @@ int main(const int argc, const char **argv) {
   double f = 1.0;
 
   std::cout << "t" << ", " << "solution" << ", " << "calculated" << ", " << "error%" << std::endl;
-  std::cout << t << ", " << sol(f, t) << ", " << f << ", " << std::abs(f - sol(f, t)) / sol(f, t) * 100 << std::endl;
+  std::cout << t << ", " << sol(f, x, t) << ", " << f << ", " << std::abs(f - sol(f, x, t)) / sol(f, x, t) * 100 << std::endl;
 
   for (size_t i = 0; i < n; ++i) {
     f = forward_euler(rhs, f, x, t, dt);
