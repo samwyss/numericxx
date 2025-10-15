@@ -23,15 +23,17 @@
 #include <fmt/printf.h>
 #include <numericxx.hpp>
 
-double rhs(const double f, const double t) { return -2.0 * f; }
+constexpr double INIT_F = 0.0;
 
-double sol(const double f, const double t) { return std::exp(-2.0 * t); }
+double rhs(const double f, const double t) { return std::cos(t); }
+
+double sol(const double f, const double t) { return std::sin(t); }
 
 int main(const int argc, const char **argv) {
   const auto n = static_cast<size_t>(std::stoull(argv[1]));
   const auto dt = static_cast<double>(std::stod(argv[2]));
   double t = 0.0;
-  double f = 1.0;
+  double f = INIT_F;
 
   // timing
   const std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
@@ -49,7 +51,7 @@ int main(const int argc, const char **argv) {
 
   // comparison
   t = 0.0;
-  f = 1.0;
+  f = INIT_F;
 
   double act = sol(f, t);
   double err = std::abs(f - act) / act * 100;
