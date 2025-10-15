@@ -15,9 +15,12 @@
  * <https://www.gnu.org/licenses/>.
  */
 
+#include <chrono>
 #include <cmath>
 #include <cstdlib>
-#include <iostream>
+#include <fmt/chrono.h>
+#include <fmt/core.h>
+#include <fmt/printf.h>
 #include <numericxx.hpp>
 
 double rhs(const double f, const double x, const double t) { return -2.0 * f; }
@@ -31,16 +34,37 @@ int main(const int argc, const char **argv) {
   double x = 0.0;
   double f = 1.0;
 
-  std::cout << "t" << ", " << "solution" << ", " << "calculated" << ", " << "error%" << std::endl;
-  std::cout << t << ", " << sol(f, x, t) << ", " << f << ", " << std::abs(f - sol(f, x, t)) / sol(f, x, t) * 100
-            << std::endl;
+  // timing
+  const std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+  for (size_t i = 0; i < n; ++i) {
+    f = forward_euler(rhs, f, x, t, dt);
+    t += dt;
+  }
+  const std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+
+  const auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+  fmt::print("loop time: {}\n", duration);
+  fmt::print("iteration time: {}\n", duration / n);
+  fmt::print("final value: {}\n", f);
+  fmt::print("\n");
+
+  // comparison
+  t = 0.0;
+  x = 0.0;
+  f = 1.0;
+
+  double act = sol(f, x, t);
+  double err = std::abs(f - act) / act * 100;
+  fmt::print("t, actual, calculated, error(%)\n");
+  fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
 
   for (size_t i = 0; i < n; ++i) {
     f = forward_euler(rhs, f, x, t, dt);
     t += dt;
 
-    const auto act = sol(f, x, t);
-    std::cout << t << ", " << act << ", " << f << ", " << std::abs(f - act) / act * 100 << std::endl;
+    act = sol(f, x, t);
+    err = std::abs(f - act) / act * 100;
+    fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
   }
 
   return EXIT_SUCCESS;
