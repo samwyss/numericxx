@@ -23,11 +23,11 @@
 #include <fmt/printf.h>
 #include <numericxx.hpp>
 
-constexpr double INIT_F = 0.0;
+constexpr double INIT_F = 1.0;
 
-double rhs(const double t, const double f) { return std::cos(t); }
+double rhs(const double t, const double f) { return -2.0 * f; }
 
-double sol(const double t, const double f) { return std::sin(t); }
+double sol(const double t, const double f) { return std::exp(-2.0 * t); }
 
 int main(const int argc, const char **argv) {
   const auto n = static_cast<size_t>(std::stoull(argv[1]));
