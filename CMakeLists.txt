@@ -33,6 +33,7 @@ add_library(numericxx
         include/ode/ode.hpp
         include/ode/forward_euler.hpp
         include/ode/rk2.hpp
+        include/ode/rk4.hpp
 )
 
 target_include_directories(numericxx

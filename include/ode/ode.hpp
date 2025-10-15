@@ -20,5 +20,6 @@
 
 #include "forward_euler.hpp"
 #include "rk2.hpp"
+#include "rk4.hpp"
 
 #endif //NUMERICXX_ODE_HPP

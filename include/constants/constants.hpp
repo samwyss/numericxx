@@ -2,6 +2,9 @@
 #define NUMERICXX_CONSTANTS_HPP
 
 template<typename T>
+constexpr inline T ONE_SIXTH = static_cast<T>(1.0 / 6.0);
+
+template<typename T>
 constexpr inline T ONE_HALF = static_cast<T>(0.5);
 
 template<typename T>
