@@ -18,4 +18,21 @@
 #ifndef NUMERICXX_FORWARD_EULER_HPP
 #define NUMERICXX_FORWARD_EULER_HPP
 
+#include <span>
+#include <concepts>
+
+/// solves df/dt = rhs for an individual f and t
+template<std::floating_point T, typename Func>
+T forward_euler(const Func rhs, const T f, const T t, const T dt) {
+ return f + rhs(f, t) * dt;
+}
+
+/// solves df/dt = rhs for multiple f and individual t
+template<std::floating_point T, typename Func>
+void forward_euler(const Func rhs, const std::span<T> f, const T t, const T dt) {
+ for (auto &fi: f) {
+  fi += forward_euler(rhs, fi, t, dt);
+ }
+}
+
 #endif //NUMERICXX_FORWARD_EULER_HPP
