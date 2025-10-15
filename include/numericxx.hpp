@@ -18,6 +18,6 @@
 #ifndef NUMERICXX_HPP
 #define NUMERICXX_HPP
 
-#include "ode.hpp"
+#include "ode/ode.hpp"
 
 #endif //NUMERICXX_HPP
