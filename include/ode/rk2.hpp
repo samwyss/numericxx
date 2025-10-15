@@ -18,6 +18,9 @@
 #ifndef NUMERICXX_RK2_HPP
 #define NUMERICXX_RK2_HPP
 
+#include <concepts>
+#include <span>
+
 #include "constants/constants.hpp"
 
 /*!
