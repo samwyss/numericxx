@@ -82,6 +82,25 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Release")
 elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
     add_compile_options(-O2 -g3 -DNDEBUG -Wall -march=native -mtune=native -fno-omit-frame-pointer -fno-trapping-math -fno-math-errno)
 endif ()
-find_package(fmt)
+
+include(FetchContent)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+set(FETCHCONTENT_QUIET OFF)
+
+find_package(fmt QUIET)
+if (NOT fmt_FOUND)
+    message(STATUS "library `{fmt}` not found ... installing locally now")
+    FetchContent_Declare(fmt
+            GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+            GIT_TAG 12.0.0
+            GIT_PROGRESS TRUE
+            GIT_SHALLOW TRUE
+            EXCLUDE_FROM_ALL
+    )
+    FetchContent_MakeAvailable(fmt)
+else ()
+    message(STATUS "library `{fmt}` found on system")
+endif ()
+
 add_executable(numericxx_dummy main.cpp)
 target_link_libraries(numericxx_dummy PUBLIC numericxx fmt::fmt)
