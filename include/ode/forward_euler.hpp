@@ -22,17 +22,17 @@
 #include <span>
 
 /// solves df/dt = rhs for an individual f and t
-template <std::floating_point T, typename Func>
-T forward_euler(const Func rhs, const T f, const T x, const T t, const T dt) {
-  return f + rhs(f, x, t) * dt;
+template<std::floating_point T, typename Func>
+T forward_euler(const Func rhs, const T f, const T t, const T dt) {
+    return f + rhs(f, t) * dt;
 }
 
 /// solves df/dt = rhs for multiple f and individual t
-template <std::floating_point T, typename Func>
-void forward_euler(const Func rhs, const std::span<T> f, const std::span<T> x, const T t, const T dt) {
-  for (size_t i = 0; i < f.size(); ++i) {
-    f[i] += forward_euler(rhs, f[i], x[i], t, dt);
-  }
+template<std::floating_point T, typename Func>
+void forward_euler(const Func rhs, const std::span<T> f, const T t, const T dt) {
+    for (auto &fi: f) {
+        fi = forward_euler(rhs, fi, t, dt);
+    }
 }
 
 #endif // NUMERICXX_FORWARD_EULER_HPP
