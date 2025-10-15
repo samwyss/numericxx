@@ -16,9 +16,35 @@
  */
 
 #include <cstdlib>
+#include <iostream>
+#include <cmath>
 
 #include "numericxx.hpp"
 
-int main(const int argc, char **argv) {
+double rhs(const double f, const double t) {
+    return -2.0 * f;
+}
+
+double sol(const double f, const double t) {
+    return std::exp(-2.0 * t);
+}
+
+int main(const int argc, const char **argv) {
+    const auto n = static_cast<size_t>(std::stoull(argv[1]));
+    const auto dt = static_cast<double>(std::stod(argv[2]));
+    double t = 0.0;
+    double f = 1.0;
+
+    std::cout << "t" << ", " << "solution" << ", " << "calculated" << ", " << "error%" << std::endl;
+    std::cout << t << ", " << sol(f, t) << ", " << f << ", " << std::abs(f - sol(f, t)) / sol(f, t) * 100 << std::endl;
+
+    for (size_t i = 0; i < n; ++i) {
+        f = forward_euler(rhs, f, t, dt);
+        t += dt;
+
+        const auto act = sol(f, t);
+        std::cout << t << ", " << act << ", " << f << ", " << std::abs(f - act) / act * 100 << std::endl;
+    }
+
     return EXIT_SUCCESS;
 }
