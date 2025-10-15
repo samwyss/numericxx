@@ -26,14 +26,14 @@
  * @tparam T floating point type
  * @tparam Func rhs function template
  * @param rhs rhs function of f and t
- * @param f current f value
  * @param t current t value
+ * @param f current f value
  * @param dt t increment
  * @return next f value
  */
 template<std::floating_point T, typename Func>
-T forward_euler(const Func rhs, const T f, const T t, const T dt) {
-    return f + rhs(f, t) * dt;
+T forward_euler(const Func rhs, const T t, const T f, const T dt) {
+    return f + rhs(t, f) * dt;
 }
 
 /*!
@@ -41,15 +41,15 @@ T forward_euler(const Func rhs, const T f, const T t, const T dt) {
  * @tparam T floating point type
  * @tparam Func rhs function template
  * @param rhs rhs function of f and t
- * @param f current f values
  * @param t current t value
+ * @param f current f values
  * @param dt t increment
  * @return next f value
  */
 template<std::floating_point T, typename Func>
-void forward_euler(const Func rhs, const std::span<T> f, const T t, const T dt) {
+void forward_euler(const Func rhs, const T t, const std::span<T> f, const T dt) {
     for (auto &fi: f) {
-        fi = forward_euler(rhs, fi, t, dt);
+        fi = forward_euler(rhs, t, fi, dt);
     }
 }
 

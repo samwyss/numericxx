@@ -25,9 +25,9 @@
 
 constexpr double INIT_F = 0.0;
 
-double rhs(const double f, const double t) { return std::cos(t); }
+double rhs(const double t, const double f) { return std::cos(t); }
 
-double sol(const double f, const double t) { return std::sin(t); }
+double sol(const double t, const double f) { return std::sin(t); }
 
 int main(const int argc, const char **argv) {
   const auto n = static_cast<size_t>(std::stoull(argv[1]));
@@ -38,7 +38,7 @@ int main(const int argc, const char **argv) {
   // timing
   const std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
   for (size_t i = 0; i < n; ++i) {
-    f = forward_euler(rhs, f, t, dt);
+    f = forward_euler(rhs, t, f, dt);
     t += dt;
   }
   const std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
@@ -59,7 +59,7 @@ int main(const int argc, const char **argv) {
   fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
 
   for (size_t i = 0; i < n; ++i) {
-    f = forward_euler(rhs, f, t, dt);
+    f = forward_euler(rhs, t, f, dt);
     t += dt;
 
     act = sol(f, t);

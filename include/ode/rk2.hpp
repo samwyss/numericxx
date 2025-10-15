@@ -25,15 +25,15 @@
  * @tparam T floating point type
  * @tparam Func rhs function template
  * @param rhs rhs function of f and t
- * @param f current f value
  * @param t current t value
+ * @param f current f value
  * @param dt t increment
  * @return next f value
  */
 template<std::floating_point T, typename Func>
-T rk2(const Func rhs, const T f, const T t, const T dt) {
-    const T k1 = rhs(f, t);
-    const T k2 = rhs(f + ONE_HALF<T> * dt * k1, t + ONE_HALF<T> * dt);
+T rk2(const Func rhs, const T t, const T f, const T dt) {
+    const T k1 = rhs(t, f);
+    const T k2 = rhs(t + ONE_HALF<T> * dt, f + ONE_HALF<T> * dt * k1);
     return f + dt * k2;
 }
 
@@ -42,15 +42,15 @@ T rk2(const Func rhs, const T f, const T t, const T dt) {
  * @tparam T floating point type
  * @tparam Func rhs function template
  * @param rhs rhs function of f and t
- * @param f current f values
  * @param t current t value
+ * @param f current f values
  * @param dt t increment
  * @return next f value
  */
 template<std::floating_point T, typename Func>
-void rk2(const Func rhs, const std::span<T> f, const T t, const T dt) {
+void rk2(const Func rhs, const T t, const std::span<T> f, const T dt) {
     for (auto &fi: f) {
-        fi = rk2(rhs, fi, t, dt);
+        fi = rk2(rhs, t, fi, dt);
     }
 }
 
