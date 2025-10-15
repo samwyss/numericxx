@@ -53,7 +53,7 @@ int main(const int argc, const char **argv) {
   t = 0.0;
   f = INIT_F;
 
-  double act = sol(f, t);
+  double act = sol(t, f);
   double err = std::abs(f - act) / act * 100;
   fmt::print("t, actual, calculated, error(%)\n");
   fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
@@ -62,7 +62,7 @@ int main(const int argc, const char **argv) {
     f = forward_euler(rhs, t, f, dt);
     t += dt;
 
-    act = sol(f, t);
+    act = sol(t, f);
     err = std::abs(f - act) / act * 100;
     fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
   }
