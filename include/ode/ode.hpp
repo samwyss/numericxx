@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Samuel Wyss
+ * Copyright (C) 2025 Samuel Wyss
  *
  * This file is part of numericxx.
  *
