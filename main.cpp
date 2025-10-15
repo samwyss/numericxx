@@ -39,7 +39,7 @@ int main(const int argc, const char **argv) {
     f = forward_euler(rhs, f, x, t, dt);
     t += dt;
 
-    const auto act = sol(f, t);
+    const auto act = sol(f, x, t);
     std::cout << t << ", " << act << ", " << f << ", " << std::abs(f - act) / act * 100 << std::endl;
   }
 
