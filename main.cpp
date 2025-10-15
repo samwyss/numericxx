@@ -32,7 +32,8 @@ int main(const int argc, const char **argv) {
   double f = 1.0;
 
   std::cout << "t" << ", " << "solution" << ", " << "calculated" << ", " << "error%" << std::endl;
-  std::cout << t << ", " << sol(f, x, t) << ", " << f << ", " << std::abs(f - sol(f, x, t)) / sol(f, x, t) * 100 << std::endl;
+  std::cout << t << ", " << sol(f, x, t) << ", " << f << ", " << std::abs(f - sol(f, x, t)) / sol(f, x, t) * 100
+            << std::endl;
 
   for (size_t i = 0; i < n; ++i) {
     f = forward_euler(rhs, f, x, t, dt);
