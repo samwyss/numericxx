@@ -73,20 +73,3 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
 )
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION include)
-
-option(NUMERICXX_DEV_EXE "enable building of a test executable for development" ON)
-if (NUMERICXX_DEV_EXE)
-
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        add_compile_options(-O0 -Wall -g3)
-    elseif (CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_compile_options(-O3 -DNDEBUG -Wall -march=native -mtune=native -fno-trapping-math -fno-math-errno -ffast-math -flto)
-        add_link_options(-flto)
-    elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-        add_compile_options(-O2 -g3 -DNDEBUG -Wall -march=native -mtune=native -fno-omit-frame-pointer -fno-trapping-math -fno-math-errno)
-    endif ()
-
-    add_executable(dev dev.cpp)
-    target_link_libraries(dev PUBLIC numericxx)
-    target_include_directories(dev PUBLIC include)
-endif ()
