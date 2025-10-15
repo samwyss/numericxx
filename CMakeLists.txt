@@ -29,8 +29,10 @@ include(GNUInstallDirs)
 
 add_library(numericxx
         INTERFACE include/numericxx.hpp
+        include/constants/constants.hpp
         include/ode/ode.hpp
         include/ode/forward_euler.hpp
+        include/ode/rk2.hpp
 )
 
 target_include_directories(numericxx

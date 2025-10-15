@@ -19,5 +19,6 @@
 #define NUMERICXX_ODE_HPP
 
 #include "forward_euler.hpp"
+#include "rk2.hpp"
 
 #endif //NUMERICXX_ODE_HPP
