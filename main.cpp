@@ -54,7 +54,7 @@ int main(const int argc, const char **argv) {
   f = INIT_F;
 
   double act = sol(t, f);
-  double err = std::abs(f - act) / act * 100;
+  double err = std::fabs(f - act) / act * 100;
   fmt::print("t, actual, calculated, error(%)\n");
   fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
 
@@ -63,7 +63,7 @@ int main(const int argc, const char **argv) {
     t += dt;
 
     act = sol(t, f);
-    err = std::abs(f - act) / act * 100;
+    err = std::fabs(f - act) / act * 100;
     fmt::print("{:.8e}, {:.8e}, {:.8e}, {:.8e}\n", t, act, f, err);
   }
 
