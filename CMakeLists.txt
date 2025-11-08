@@ -34,6 +34,7 @@ add_library(numericxx
         include/ode/forward_euler.hpp
         include/ode/rk2.hpp
         include/ode/rk4.hpp
+        include/ode/leapfrog.hpp
 )
 
 target_include_directories(numericxx
